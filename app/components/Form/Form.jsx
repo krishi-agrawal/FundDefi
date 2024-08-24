@@ -90,7 +90,7 @@ const Form = () => {
   return (
     <FormState.Provider value={{ form, setForm, image, setImage, ImageHandler, FormHandler, setStoryUrl, setImageUrl, setAddress, setUploaded, startCampaign }}>
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-100">
-        <div className="container mx-auto p-6">
+        <div className="container mx-auto p-4">
           <h2 className="text-2xl font-bold mb-4 text-gray-700 text-center">Start a Fundraiser Campaign</h2>
           {loading ? (
             address === "" ? (
@@ -105,7 +105,7 @@ const Form = () => {
               </div>
             )
           ) : (
-            <div className="bg-white rounded-lg shadow-lg p-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
+            <div className="bg-black rounded-lg shadow-lg p-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
               <div className="w-full md:w-1/2">
                 <FormLeftWrapper />
               </div>

@@ -77,11 +77,17 @@ const Home = () => {
           </div>
 
           {/* Right Part */}
-          <div className="flex-1 flex flex-col items-center justify-center bg-black text-white p-8 relative">
-            <img src='/back-glow.png' width="300px" height="400px" className='opacity-75 absolute right-0 top-0'></img>
-            <p className="text-xl md:text-3xl mb-4 text-center">
-              Connecting for a cause
-            </p>
+          <div className="flex-1 flex flex-col items-center justify-center bg-violet-400 text-white p-8 relative">
+            {/* <img src='/back-glow.png' width="300px" height="400px" className='opacity-75 absolute right-0 top-0'></img> */}
+            <div className="text-4xl mb-10"> {/* Adjust the text size using Tailwind's text size utilities */}
+              <Typewriter
+                options={{
+                  strings: ['Connecting For A Cause...'],
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
+            </div>
             <button onClick={() => setShowLandingPage(false)} className="bg-white text-blue-600 py-2 px-4 rounded hover:bg-gray-200 transition duration-300">
               Go to Campaigns
             </button>
@@ -91,7 +97,7 @@ const Home = () => {
         <div className="container mx-auto p-6 bg-black">
           <div className='flex justify-center items-center m-0 relative'>
             <h1 className="text-8xl md:text-6xl font-bold mb-4 m-0">Campaigns</h1>
-            <img src='/security_final.png' width="300px" height="30px" className='absolute right-20'/>
+            <img src='/security_final.png' width="300px" height="30px" className='absolute right-20' />
           </div>
 
           <div className="mb-4">
