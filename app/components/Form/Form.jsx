@@ -85,36 +85,38 @@ const Form = () => {
   useEffect(() => {
     console.log("category: ", form.category)
   }, [form.category])
-  
+
 
   return (
     <FormState.Provider value={{ form, setForm, image, setImage, ImageHandler, FormHandler, setStoryUrl, setImageUrl, setAddress, setUploaded, startCampaign }}>
-      <div className="min-h-screen  flex items-center justify-center relative bg-white">
-        <div className="container mx-auto p-6 ">
-          {loading == true ?
-            address == "" ?
-              <div className='flex justify-center '>
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-100">
+        <div className="container mx-auto p-6">
+          <h2 className="text-2xl font-bold mb-4 text-gray-700 text-center">Start a Fundraiser Campaign</h2>
+          {loading ? (
+            address === "" ? (
+              <div className='flex justify-center'>
                 <TailSpin height={60} color='black' />
               </div>
-              :
-              <div className='text-blue-500'>
-                <h1>Fundraiser Campaign started successfully!</h1>
-                <p>{address}</p>
-                <button className='border border-black'>Go to Campaign</button>
+            ) : (
+              <div className='text-blue-500 text-center'>
+                <h1 className="text-2xl font-semibold">Fundraiser Campaign started successfully!</h1>
+                <p className="text-lg mt-2">{address}</p>
+                <button className='mt-4 border border-black px-4 py-2 rounded hover:bg-gray-200 transition duration-300'>Go to Campaign</button>
               </div>
-            :
-
-            <div className="bg-transparent backdrop-blur-md rounded-lg shadow-lg p-8 flex flex-col md:flex-row">
-              <div className="w-full md:w-1/2 p-4">
+            )
+          ) : (
+            <div className="bg-white rounded-lg shadow-lg p-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
+              <div className="w-full md:w-1/2">
                 <FormLeftWrapper />
               </div>
-              <div className="w-full md:w-1/2 p-4">
+              <div className="w-full md:w-1/2">
                 <FormRightWrapper />
               </div>
             </div>
-          }
+          )}
         </div>
       </div>
+
     </FormState.Provider>
   );
 };

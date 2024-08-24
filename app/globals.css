@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dark-blue : #363062;
+  --med-blue : #435585;
+  --light-blu : #818FB4;
+  --offwhite: #F5E8C7;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+
+body {
+  color: rgb(var(--foreground-rgb));
+  /* font-family: "Po", sans-serif !important; */
+}
+
+
+.bg-dark-blu {
+  background-color: var(--dark-blue);
+}
+.bg-med-blu {
+  background-color: var(--med-blue);
+}
+.bg-light-blu {
+  background-color: var(--light-blu);
+}
+.bg-offwhite {
+  background-color: var(--offwhite);
+}
+.text-offwhite {
+  color: var(--offwhite);
+}
+
+.blu-gradient {
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0)), 
+                        linear-gradient(to bottom right, #D9F0FF, #A3DBFF);
+}
+
+.bg-img{
+  /* background-image: url('./design.png'); */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background: ; */
+}
+
+.bg-logo{
+  background-color: url('/bglogo.png');
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-bg-gradient {
+  background-size: 200% 200%;
+  animation: gradient 10s ease infinite;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}

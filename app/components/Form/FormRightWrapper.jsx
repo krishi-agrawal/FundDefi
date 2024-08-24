@@ -3,6 +3,9 @@ import { FormState } from './Form.jsx';
 import { TailSpin } from 'react-loader-spinner';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDollarSign, faTags, faImage } from '@fortawesome/free-solid-svg-icons';
+import { faEthereum } from '@fortawesome/free-brands-svg-icons';
 
 const FormRightWrapper = () => {
     const Handler = useContext(FormState);
@@ -78,77 +81,77 @@ const FormRightWrapper = () => {
 
 
     return (
-        <div className="p-6 bg-white rounded shadow-md">
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
-                    Required Amount
-                </label>
-                <input
-                    type="number"
-                    id="amount"
-                    name="requiredAmt"
-                    value={Handler.form.requiredAmt}
-                    onChange={Handler.FormHandler}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Enter required amount"
-                />
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
-                    Select Category
-                </label>
-                <select
-                    id="category"
-                    name="category"
-                    value={Handler.form.category}
-                    onChange={Handler.FormHandler}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                >
-                    <option value="" disabled>Select a category</option>
-                    <option value="Education">Education</option>
-                    <option value="Health">Health</option>
-                    <option value="Environment">Environment</option>
-                    <option value="Technology">Technology</option>
-                    {/* Add more categories as needed */}
-                </select>
-            </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
-                    Upload Image
-                </label>
-                <input
-                    type="file"
-                    id="image"
-                    name='image'
-                    onChange={Handler.ImageHandler}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="flex items-center justify-between">
-                {uploadLoading ? (
-                    <button className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        <TailSpin color='#fff' height={20} />
-                    </button>
-                ) : (
-                    uploaded ? (
-                        <button className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" style={{ cursor: "no-drop" }}>
-                            Files uploaded Successfully
-                        </button>
-                    ) : (
-                        <button onClick={uploadFiles} className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                            Upload Files to IPFS
-                        </button>
-                    )
-                )}
-                <button
-                    type="submit"
-                    onClick={Handler.startCampaign}
-                    className="text-white bg-green-500 hover:bg-green-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                    Start Campaign
+        <div className="p-6 bg-white rounded-lg shadow-md">
+    <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
+        <FontAwesomeIcon icon={faEthereum} className="mr-2" /> Required Amount
+        </label>
+        <input
+            type="number"
+            id="amount"
+            name="requiredAmt"
+            value={Handler.form.requiredAmt}
+            onChange={Handler.FormHandler}
+            className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400 focus:shadow-outline"
+            placeholder="Enter required amount"
+        />
+    </div>
+    <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
+        <FontAwesomeIcon icon={faTags} className="mr-2" /> Select Category
+        </label>
+        <select
+            id="category"
+            name="category"
+            value={Handler.form.category}
+            onChange={Handler.FormHandler}
+            className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400 focus:shadow-outline"
+        >
+            <option value="" disabled>Select a category</option>
+            <option value="Education">Education</option>
+            <option value="Health">Health</option>
+            <option value="Environment">Environment</option>
+            <option value="Technology">Technology</option>
+        </select>
+    </div>
+    <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
+        <FontAwesomeIcon icon={faImage} className="mr-2" />  Upload Image
+        </label>
+        <input
+            type="file"
+            id="image"
+            name='image'
+            onChange={Handler.ImageHandler}
+            className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-400 focus:shadow-outline"
+        />
+    </div>
+    <div className="flex items-center justify-between space-x-2">
+        {uploadLoading ? (
+            <button className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <TailSpin color='#fff' height={20} />
+            </button>
+        ) : (
+            uploaded ? (
+                <button className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" style={{ cursor: "no-drop" }}>
+                    Files uploaded Successfully
                 </button>
-            </div>
-        </div>
+            ) : (
+                <button onClick={uploadFiles} className="text-white bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Upload Files to IPFS
+                </button>
+            )
+        )}
+        <button
+            type="submit"
+            onClick={Handler.startCampaign}
+            className="text-white bg-green-500 hover:bg-green-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+            Start Campaign
+        </button>
+    </div>
+</div>
+
     );
 };
 
