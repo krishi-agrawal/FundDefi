@@ -2,7 +2,7 @@ import React from 'react'
 
 const Hello = () => {
   return (
-    <div>Hello</div>
+    <div text-rose-500>Hello</div>
   )
 }
 

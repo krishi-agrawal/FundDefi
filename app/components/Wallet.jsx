@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { ethers } from 'ethers';
 
 const Wallet = () => {
     const [address, setAddress] = useState('');
     const [balance, setBalance] = useState('');
 
-    const connectWallet = async () => {
+    const connectWallet = useCallback(async () => {
         if (typeof window !== 'undefined' && window.ethereum) { // Check if window and ethereum are available
             try {
                 const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -19,24 +19,24 @@ const Wallet = () => {
                 console.error('Error connecting to wallet:', error);
             }
 
-            window.ethereum.on('chainChanged', (chainId) => {
+            window.ethereum.on('chainChanged', () => {
                 window.location.reload();
             });
 
-            window.ethereum.on('accountsChanged', async function (accounts) {
+            window.ethereum.on('accountsChanged', async (accounts) => {
                 setAddress(accounts[0]);
                 await connectWallet();
             });
         } else {
             console.error('Ethereum wallet is not available');
         }
-    };
+    }, []); // Empty dependency array to prevent re-creation on every render
 
     useEffect(() => {
         if (typeof window !== 'undefined' && window.ethereum) {
             connectWallet();
         }
-    }, []);
+    }, [connectWallet]);
 
     return (
         <div>
@@ -46,7 +46,7 @@ const Wallet = () => {
             >
                 {address ? `${address.slice(0, 5)}...${address.slice(-4)}` : `Connect`}
             </button>
-            {balance && <span>{balance.slice(0, 5)} ETH</span>}
+            {balance && <span className='border border-none rounded px-4 py-2 bg-purple-700'>Bal : {balance.slice(0, 5)} ETH</span>}
         </div>
     );
 };

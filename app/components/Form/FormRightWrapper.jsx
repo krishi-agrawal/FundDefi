@@ -84,7 +84,7 @@ const FormRightWrapper = () => {
         <div className="p-6 bg-white rounded-lg shadow-md">
     <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="amount">
-        <FontAwesomeIcon icon={faEthereum} className="mr-2" /> Required Amount
+            <FontAwesomeIcon icon={faEthereum} className="mr-2" /> Required Amount
         </label>
         <input
             type="number"
@@ -98,7 +98,7 @@ const FormRightWrapper = () => {
     </div>
     <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
-        <FontAwesomeIcon icon={faTags} className="mr-2" /> Select Category
+            <FontAwesomeIcon icon={faTags} className="mr-2" /> Select Category
         </label>
         <select
             id="category"
@@ -116,7 +116,7 @@ const FormRightWrapper = () => {
     </div>
     <div className="mb-4">
         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
-        <FontAwesomeIcon icon={faImage} className="mr-2" />  Upload Image
+            <FontAwesomeIcon icon={faImage} className="mr-2" />  Upload Image
         </label>
         <input
             type="file"
@@ -151,6 +151,7 @@ const FormRightWrapper = () => {
         </button>
     </div>
 </div>
+
 
     );
 };

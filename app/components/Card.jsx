@@ -1,12 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Card = ({ campaign }) => {
   console.log('Campaign in Card:', campaign); // Log each campaign
 
   return (
     <div className="bg-white rounded-lg overflow-hidden transition-transform transform hover:scale-105 hover:shadow-xl w-96">
-      <img src={campaign.image} alt={campaign.title} className="w-full h-48 object-cover" />
+      <Image src={campaign.image} alt={campaign.title} width={200} height={100} className="w-full h-48 object-cover" />
       <div className="p-6 space-y-4">
         <h2 className="text-2xl text-gray-800 font-semibold">{campaign.title}</h2>
         <div className="text-sm text-gray-700 space-y-2">

@@ -4,8 +4,10 @@ import FormLeftWrapper from './FormLeftWrapper.jsx';
 import FormRightWrapper from './FormRightWrapper.jsx'
 import { TailSpin } from 'react-loader-spinner';
 import { toast } from "react-toastify"
-import { ethers } from 'ethers';
+import dynamic from 'next/dynamic';
+
 import CampaignCollection from "../../../artifacts/contracts/Campaign.sol/CampaignCollection.json"
+const ethers = dynamic(() => import('ethers'), { ssr: false });
 
 const FormState = createContext()
 
@@ -40,6 +42,8 @@ const Form = () => {
 
   const startCampaign = async (e) => {
     e.preventDefault()
+    if (typeof window === 'undefined') return; // Exit if not in the browser
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
 
@@ -89,9 +93,9 @@ const Form = () => {
 
   return (
     <FormState.Provider value={{ form, setForm, image, setImage, ImageHandler, FormHandler, setStoryUrl, setImageUrl, setAddress, setUploaded, startCampaign }}>
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-black">
         <div className="container mx-auto p-4">
-          <h2 className="text-2xl font-bold mb-4 text-gray-700 text-center">Start a Fundraiser Campaign</h2>
+          <h2 className="text-8xl md:text-6xl font-bold m-0 text-white text-center bg-zinc-700 py-4">Start a Fundraiser Campaign</h2>
           {loading ? (
             address === "" ? (
               <div className='flex justify-center'>
@@ -105,14 +109,15 @@ const Form = () => {
               </div>
             )
           ) : (
-            <div className="bg-black rounded-lg shadow-lg p-8 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6">
-              <div className="w-full md:w-1/2">
+            <div className="bg-black rounded-lg shadow-lg p-8 flex flex-col space-y-6">
+              <div className="w-full">
                 <FormLeftWrapper />
               </div>
-              <div className="w-full md:w-1/2">
+              <div className="w-full">
                 <FormRightWrapper />
               </div>
             </div>
+
           )}
         </div>
       </div>

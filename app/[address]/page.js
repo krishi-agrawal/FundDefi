@@ -1,8 +1,8 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import CampaignCollection from "../../artifacts/contracts/Campaign.sol/CampaignCollection.json";
 import Campaign from "../../artifacts/contracts/Campaign.sol/Campaign.json";
+import Image from 'next/image'; // Import next/image
 
 export default function Detail({ params }) {
   const [data, setData] = useState(null);
@@ -14,65 +14,59 @@ export default function Detail({ params }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
-      const contract = new ethers.Contract(params.address, Campaign.abi, provider);
+      try {
+        const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
+        const contract = new ethers.Contract(params.address, Campaign.abi, provider);
 
-      const title = await contract.title();
-      const requiredAmt = await contract.requiredAmt();
-      const image = await contract.image();
-      const storyUrl = await contract.story();
-      const owner = await contract.owner();
-      const receivedAmt = await contract.receivedAmt();
+        const title = await contract.title();
+        const requiredAmt = await contract.requiredAmt();
+        const image = await contract.image();
+        const storyUrl = await contract.story();
+        const owner = await contract.owner();
+        const receivedAmt = await contract.receivedAmt();
 
-      const data = {
-        address: params.address,
-        title,
-        requiredAmt: ethers.utils.formatEther(requiredAmt),
-        image,
-        receivedAmt: ethers.utils.formatEther(receivedAmt),
-        storyUrl,
-        owner,
-      };
+        const data = {
+          address: params.address,
+          title,
+          requiredAmt: ethers.utils.formatEther(requiredAmt),
+          image,
+          receivedAmt: ethers.utils.formatEther(receivedAmt),
+          storyUrl,
+          owner,
+        };
 
-      setData(data);
+        setData(data);
 
-      let storyData;
-      fetch(data.storyUrl)
-        .then(res => res.text()).then(data => storyData = data);
-      setStory(storyData);
-      console.log(storyData)
+        // Fetch story text
+        const response = await fetch(data.storyUrl);
+        const storyData = await response.text();
+        setStory(storyData);
 
-      await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const Web3provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = Web3provider.getSigner();
-      const Address = await signer.getAddress();
-      console.log(Address)
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const Web3provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = Web3provider.getSigner();
+        const Address = await signer.getAddress();
 
-      const contractt = new ethers.Contract(data.address, Campaign.abi, provider);
-      const MyDonations = contractt.filters.donorEvent(null, Address, null);
-      const MyAllDonations = await contractt.queryFilter(MyDonations);
-
-      setMydonations(MyAllDonations.map((e) => {
-        return {
+        // Fetch user's donations
+        const myDonationsFilter = contract.filters.donorEvent(null, Address, null);
+        const myAllDonations = await contract.queryFilter(myDonationsFilter);
+        setMydonations(myAllDonations.map((e) => ({
           donor: e.args.donor,
           amount: ethers.utils.formatEther(e.args.amount),
           timestamp: parseInt(e.args.timestamp),
-        };
-      }));
-      console.log(mydonations)
+        })));
 
-      const donations = contractt.filters.donorEvent();
-      const AllDonations = await contractt.queryFilter(donations);
-
-      const donationsData = AllDonations.map((e) => {
-        return {
+        // Fetch all donations
+        const allDonationsFilter = contract.filters.donorEvent();
+        const allDonations = await contract.queryFilter(allDonationsFilter);
+        setDonationsData(allDonations.map((e) => ({
           donor: e.args.donor,
           amount: ethers.utils.formatEther(e.args.amount),
           timestamp: parseInt(e.args.timestamp),
-        };
-      });
-
-      setDonationsData(donationsData);
+        })));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
     fetchData();
@@ -89,7 +83,7 @@ export default function Detail({ params }) {
       const transaction = await contract.donate({ value: ethers.utils.parseEther(amount) });
       await transaction.wait();
 
-      setChange(true);
+      setChange(!change); // Toggle change to trigger re-fetch
       setAmount('');
     } catch (error) {
       console.log(error);
@@ -105,7 +99,14 @@ export default function Detail({ params }) {
   return (
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <img className="w-full h-64 object-cover" src={data.image} alt={data.title} />
+        <Image
+          className="w-full h-64 object-cover"
+          src={data.image}
+          alt={data.title}
+          layout="responsive"
+          width={700} // Set appropriate width and height for responsive loading
+          height={400}
+        />
         <div className="p-8">
           <h2 className="text-3xl text-gray-800 font-bold mb-4">{data.title}</h2>
           <p className="text-gray-700 mb-6">{story}</p>
@@ -161,15 +162,3 @@ export default function Detail({ params }) {
     </div>
   );
 }
-
-// export async function generateStaticParams() {
-//   const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
-//   const contract = new ethers.Contract(process.env.NEXT_PUBLIC_ADDRESS, CampaignCollection.abi, provider);
-
-//   const allCampaigns = contract.filters.campaignCreated();
-//   const AllCampaigns = await contract.queryFilter(allCampaigns);
-
-//   return AllCampaigns.map((e) => ({
-//     address: e.args.campaignAddress.toString(),
-//   }));
-// }
