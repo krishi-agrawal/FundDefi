@@ -4,10 +4,11 @@ import FormLeftWrapper from './FormLeftWrapper.jsx';
 import FormRightWrapper from './FormRightWrapper.jsx'
 import { TailSpin } from 'react-loader-spinner';
 import { toast } from "react-toastify"
-import dynamic from 'next/dynamic';
-
+// import dynamic from 'next/dynamic';
+import { ethers } from 'ethers';
+import Link from 'next/link';
 import CampaignCollection from "../../../artifacts/contracts/Campaign.sol/CampaignCollection.json"
-const ethers = dynamic(() => import('ethers'), { ssr: false });
+// const ethers = dynamic(() => import('ethers'), { ssr: false });
 
 const FormState = createContext()
 
@@ -105,7 +106,11 @@ const Form = () => {
               <div className='text-blue-500 text-center'>
                 <h1 className="text-2xl font-semibold">Fundraiser Campaign started successfully!</h1>
                 <p className="text-lg mt-2">{address}</p>
-                <button className='mt-4 border border-black px-4 py-2 rounded hover:bg-gray-200 transition duration-300'>Go to Campaign</button>
+                <Link passHref href={'/' + campaign.address} className="block text-center bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+
+                  Go to Fundraiser
+
+                </Link>
               </div>
             )
           ) : (

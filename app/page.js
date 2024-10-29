@@ -7,7 +7,7 @@ import CampaignCollection from '../artifacts/contracts/Campaign.sol/CampaignColl
 import Image from 'next/image';
 
 // Dynamic import for ethers to avoid SSR issues
-const ethers = dynamic(() => import('ethers'), { ssr: false });
+import { ethers } from 'ethers';
 
 const Home = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -26,7 +26,7 @@ const Home = () => {
     };
     const fetchData = async () => {
       try {
-        if (typeof window === 'undefined') return; // Ensure client-side only
+        // if (typeof window === 'undefined') return; // Ensure client-side only
 
         const rpcProvider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_RPC_URL);
         const contract = new ethers.Contract(process.env.NEXT_PUBLIC_ADDRESS, CampaignCollection.abi, rpcProvider);
@@ -75,7 +75,7 @@ const Home = () => {
             <h1 className="text-4xl md:text-6xl absolute top-10 font-bold text-center">
               Decentralised Fundraiser
             </h1>
-            <Image className='absolute left-0 bottom-0 z-10' src='/blocks_new.png' alt="Decorative blockchain illustration"  height="500px" width="500px" />
+            <Image className='absolute left-0 bottom-0 z-10' src='/blocks_new.png' alt="Decorative blockchain illustration"  height={500} width={500} />
           </div>
 
           {/* Right Part */}

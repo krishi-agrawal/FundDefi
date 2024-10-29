@@ -1,11 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
+
 import CardsList from "../components/CardsList.jsx";
 import CampaignCollection from '../../artifacts/contracts/Campaign.sol/CampaignCollection.json';
+import { ethers } from 'ethers';
 
-const ethers = dynamic(() => import('ethers'), { ssr: false });
+// const ethers = dynamic(() => import('ethers'), { ssr: false });
 
 const Page = () => {
   const [campaigns, setCampaigns] = useState([]);
@@ -79,13 +81,13 @@ const Page = () => {
           <h1 className="text-8xl md:text-6xl font-bold m-0 blur-none">My Campaigns</h1>
         </div>
         
-        <div className="mb-4 flex justify-center">
+        {/* <div className="mb-4 flex justify-center">
           <button onClick={() => setFilter('all')} className="mr-2 p-2 bg-purple-700 text-white rounded">All</button>
           <button onClick={() => setFilter('Environment')} className="mr-2 p-2 bg-purple-700 text-white rounded">Environment</button>
           <button onClick={() => setFilter('Technology')} className="mr-2 p-2 bg-purple-700 text-white rounded">Technology</button>
           <button onClick={() => setFilter('Health')} className="mr-2 p-2 bg-purple-700 text-white rounded">Health</button>
           <button onClick={() => setFilter('Education')} className="mr-2 p-2 bg-purple-700 text-white rounded">Education</button>
-        </div>
+        </div> */}
         
         <CardsList campaigns={campaigns} />
       </div>

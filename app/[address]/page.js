@@ -100,12 +100,12 @@ export default function Detail({ params }) {
     <div className="container mx-auto p-6 bg-gray-100 min-h-screen">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <Image
-          className="w-full h-64 object-cover"
           src={data.image}
           alt={data.title}
-          layout="responsive"
-          width={700} // Set appropriate width and height for responsive loading
-          height={400}
+          // layout="responsive"
+          width="50" // Set appropriate width and height for responsive loading
+          height="100"
+          className="w-full "
         />
         <div className="p-8">
           <h2 className="text-3xl text-gray-800 font-bold mb-4">{data.title}</h2>
