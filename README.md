@@ -1,4 +1,5 @@
 <div align="center">
+    <img src="assets/Group 268 (1).png" height="120px"/>
     <h1> FundDefi - Decentralized Fundraiser DApp </h1>
 </div>
 
@@ -23,6 +24,17 @@ FundDefi is a decentralized application (DApp) that enables users to create and 
 - **Chai**: A BDD/TDD assertion library for testing smart contracts and ensuring reliable code.
 - **Next.js**: A React framework for building fast and scalable web applications, serving as the frontend of the DApp.
 - **TailwindCSS**: A utility-first CSS framework that ensures a modern and responsive design for the DApp.
+
+## Preview
+- **Landing Page**
+  <img src="assets/Screenshot 2024-08-24 192202.png">
+  <br/>
+- **View Campaigns**
+  <img src="assets/Screenshot 2024-08-24 185159.png">
+  <br/>
+- **Detailed Camapaign Page**
+  <img src="assets/Screenshot 2024-08-24 192337.png">
+  <img src="assets/Screenshot 2024-08-24 192429.png">
 
 ## Set up locally
 
