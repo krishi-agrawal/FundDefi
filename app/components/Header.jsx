@@ -26,7 +26,7 @@ const Header = () => {
                     </button>
                 </div>
                 <div className={`w-full md:w-auto ${isOpen ? 'block' : 'hidden'} md:flex items-center space-x-6`}>
-                    <Link href="/" className="text-white hover:text-gray-300 block md:inline-block">Campaigns</Link>
+                    <Link href="/campaigns" className="text-white hover:text-gray-300 block md:inline-block">Campaigns</Link>
                     <Link href="/createCampaign" className="text-white hover:text-gray-300 block md:inline-block">Raise Funds</Link>
                     <Link href="/dashboard" className="text-white hover:text-gray-300 block md:inline-block">My Campaigns</Link>
                 </div>
